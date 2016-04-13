@@ -34,7 +34,7 @@ class GcmClient
      */
     public function send(array $data)
     {
-        if (empty($data['registration_ids']) && empty($data['notification_key'])) {
+        if (empty($data['registration_ids']) && empty($data['to'])) {
             $exception = new Exception('A registration ID or a notification key is required to send a GCM notification.', 400);
             throw $exception;
         }
