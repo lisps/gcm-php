@@ -89,15 +89,8 @@ class Message
     }
 
     /**
-     * This parameter specifies the mapping of a single user to multiple registration IDs
-     * associated with that user.
-     *
-     * This allows us to send a single message to multiple app instances (typically on
-     * multiple devices) owned by a single user.
-     *
-     * We can use notification_key as the target for a message instead of an individual
-     * registration ID (or array of registration IDs). The maximum number of members
-     * allowed for a notification_key is 20.
+     * This parameter specifies the recipient of a message.
+     * The value must be a registration token, notification key, or topic.
      *
      * Required if registrationIds not present
      *
@@ -245,7 +238,7 @@ class Message
     {
         $data = [];
 
-        if (empty($this->registrationIds) && empty($this->notificationKey)) {
+        if (empty($this->registrationIds) && empty($this->to)) {
             // error
             $exception = new Exception('A registration ID or a notification key is required to send a GCM notification.', 400);
             throw $exception;
