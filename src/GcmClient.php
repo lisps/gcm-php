@@ -11,6 +11,11 @@ class GcmClient
 {
 
     /**
+     * @var guzzleConfig
+     */
+    public $guzzleConfig = array();
+    
+    /**
      * @var string
      */
     private $apiKey;
@@ -40,7 +45,7 @@ class GcmClient
         }
 
         // we send the data
-        $client = new Client();
+        $client = new Client($this->guzzleConfig);
 
         try {
             $response = $client->post($this->gcmUrl, [
