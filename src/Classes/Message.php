@@ -21,7 +21,7 @@ class Message
     /**
      * @var string
      */
-    private $notificationKey;
+    private $to;
 
     /**
      * @var string
@@ -62,7 +62,7 @@ class Message
      * This parameter specifies the list of devices (registration IDs) receiving the
      * message. It must contain at least 1 and at most 1000 registration IDs.
      *
-     * Required if notificationKey is not present
+     * Required if to is not present
      *
      * @param string|array $registrationId
      */
@@ -82,9 +82,9 @@ class Message
         // rebase array
         $this->registrationIds = array_values($this->registrationIds);
 
-        if ( ! empty($this->notificationKey)) {
-            // remove the notification key since only one of them will be accepted
-            $this->notificationKey = null;
+        if ( ! empty($this->to)) {
+            // remove to key since only one of them will be accepted
+            $this->to = null;
         }
     }
 
@@ -101,16 +101,16 @@ class Message
      *
      * Required if registrationIds not present
      *
-     * @param $notificationKey
+     * @param $to
      */
-    public function setNotificationKey($notificationKey)
+    public function setTo($to)
     {
         if ( ! empty($this->registrationIds)) {
             // remove the registration IDs since only one of them will be accepted
             $this->registrationIds = null;
         }
 
-        $this->notificationKey = $notificationKey;
+        $this->to = $to;
     }
 
     /**
@@ -253,7 +253,7 @@ class Message
 
         // Set targets
         if ( ! empty($this->registrationIds)) $data['registration_ids'] = $this->registrationIds;
-        if ( ! empty($this->notificationKey)) $data['notification_key'] = $this->notificationKey;
+        if ( ! empty($this->to)) $data['to'] = $this->to;
 
         // Set options
         if ( ! empty($this->collapseKey)) $data['collapse_key'] = $this->collapseKey;
